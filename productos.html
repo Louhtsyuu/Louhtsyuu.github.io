@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LULA - Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: rgb(0, 0, 0);
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      background-image: url('body3.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    nav ul {
+      list-style: none;
+      background-color: #aa8caf;
+      padding: 0.5rem;
+      text-align: center;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 1rem;
+    }
+
+    nav a {
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 2rem;
+    }
+
+    
+.categoria {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.categoria > h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+    .producto {
+  flex: 1 1 200px;      
+  max-width: 220px;     
+  border: 2px solid #aa8caf;
+  padding: 0.5rem;
+  margin: 0;
+  background-color: white;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+    .producto button {
+      background-color: #aa8caf;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      padding: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+
+    footer {
+      background-color: #aa8caf;
+      color: rgb(0, 0, 0);
+      text-align: center;
+      font-weight: bold;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    ul {
+      line-height: 2;
+    }
+
+    a {
+      color: #2980b9;
+    }
+
+    #empresa {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #icono-carrito {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #aa8caf;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #contador-carrito {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgb(100, 20, 90);
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    #carrito {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
+
+    #carrito.mostrar {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .carrito ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .carrito li {
+      margin-bottom: 0.5rem;
+    }
+
+    .carrito button {
+      background-color: rgb(100, 20, 90);
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    #buscador {
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+      display: flex;
+    }
+
+    #buscador input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    #buscador button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: #aa8caf;
+      border: none;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+    }
+  
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-contenido {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+}
+
+.cerrar {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="icono-carrito" onclick="toggleCarrito()">
+  🛒<span id="contador-carrito">0</span>
+</div>
+
+<div id="carrito">
+  <h3>Carrito de Compras</h3>
+  <div class="carrito" id="contenido-carrito">
+    <p>No hay productos en el carrito.</p>
+  </div>
+</div>
+
+<header>
+  <header style="text-align: center; padding: 20px;">
+  <div style="display: inline-flex; align-items: center; gap: 15px;">
+    <img src="newlogo.png" alt="Logo Lula" style="height: 80px;">
+    <div>
+      <h1 style="margin: 0; font-size: 32px;">LULA - Productos de Cocina</h1>
+      <p style="margin: 0; font-size: 18px;">"Herramientas que Inspiran Sabor"</p>
+    </div>
+  </div>
+</header>
+
+</header>
+
+<nav>
+  <ul>
+    <li><a href="javascript:void(0)" onclick="abrirModal('modal-categorias')">Categorías</a></li>
+    <li><a href="javascript:void(0)" onclick="abrirModal('modal-contacto')">Contacto</a></li>
+  </ul>
+</nav>
+
+<section id="empresa">
+  <h1>Sobre Nosotros</h1>
+  <p>
+    <strong>
+      En LULA ofrecemos productos y electrodomésticos de cocina de alta calidad, diseñados para satisfacer las necesidades de profesionales y aficionados. Nos dedicamos a proporcionar herramientas que facilitan la cocina y elevan la experiencia culinaria.
+    </strong>
+  </p>
+</section>
+
+<section id="categorias">
+<h2 style="text-align: center;">Categorías de Productos</h2>
+  <div id="buscador">
+    <input type="text" id="input-busqueda" placeholder="Buscar producto..." />
+    <button onclick="buscarProductos()">Buscar</button>
+  </div>
+
+  <!-- Utensilios de Cocina -->
+  <div class="categoria" data-nombre="Utensilios de Cocina">
+    <h3>Utensilios de Cocina</h3>
+    <div class="producto" data-nombre="Espátula de Silicona">
+      <h4>Espátula de Silicona</h4>
+      <img src="utensilios/espatula.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Perfecta para mezclar y raspar sin rayar tus utensilios.</p>
+<p>Precio: $8.00</p>
+      <button onclick="agregarAlCarrito('Espátula de Silicona', 8)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Cucharón de Metal">
+      <h4>Cucharón de Metal</h4>
+      <img src="utensilios/cucharon.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Ideal para servir sopas, guisos y caldos.</p>
+<p>Precio: $7.00</p>
+      <button onclick="agregarAlCarrito('Cucharón de Metal', 7)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Batidor Manual">
+      <h4>Batidor Manual</h4>
+      <img src="utensilios/batidor.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Mezcla ingredientes fácilmente para postres y salsas.</p>
+<p>Precio: $10.00</p>
+      <button onclick="agregarAlCarrito('Batidor Manual', 10)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Rallador Multiuso">
+      <h4>Rallador Multiuso</h4>
+      <img src="utensilios/rallador.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Versátil herramienta para rallar queso, verduras y frutas.</p>
+<p>Precio: $9.00</p>
+      <button onclick="agregarAlCarrito('Rallador Multiuso', 9)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Pinzas para Cocina">
+      <h4>Pinzas para Cocina</h4>
+      <img src="utensilios/pinzas.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Prácticas para voltear y servir alimentos calientes.</p>
+<p>Precio: $6.00</p>
+      <button onclick="agregarAlCarrito('Pinzas para Cocina', 6)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Ollas y Sartenes -->
+  <div class="categoria" data-nombre="Ollas y Sartenes">
+    <h3>Ollas y Sartenes</h3>
+    <div class="producto" data-nombre="Sartén Antiadherente 24cm">
+      <h4>Sartén Antiadherente 24cm</h4>
+      <img src="ollas/Sartén Antiadherente.jpg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Superficie antiadherente para cocinar con menos grasa.</p>
+<p>Precio: $20.00</p>
+      <button onclick="agregarAlCarrito('Sartén Antiadherente 24cm', 20)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Cacerola 3L">
+      <h4>Cacerola 3L</h4>
+      <img src="ollas/cacerola.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Tamaño ideal para preparar comidas familiares.</p>
+<p>Precio: $25.00</p>
+      <button onclick="agregarAlCarrito('Cacerola 3L', 25)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Olla Express 6L">
+      <h4>Olla Express 6L</h4>
+      <img src="ollas/olla express.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Cocina rápida y eficiente conservando nutrientes.</p>
+<p>Precio: $45.00</p>
+      <button onclick="agregarAlCarrito('Olla Express 6L', 45)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Batería de Cocina 10 piezas">
+      <h4>Batería de Cocina 10 piezas</h4>
+      <img src="ollas/Batería de Cocina.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Completo set para equipar tu cocina desde cero.</p>
+<p>Precio: $80.00</p>
+      <button onclick="agregarAlCarrito('Batería de Cocina 10 piezas', 80)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Sartén de Hierro Fundido">
+      <h4>Sartén de Hierro Fundido</h4>
+      <img src="ollas/sartendehierro.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Conserva el calor por más tiempo, ideal para sellar carnes.</p>
+<p>Precio: $35.00</p>
+      <button onclick="agregarAlCarrito('Sartén de Hierro Fundido', 35)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Electrodomésticos de Cocina -->
+  <div class="categoria" data-nombre="Electrodomésticos de Cocina">
+    <h3>Electrodomésticos de Cocina</h3>
+    <div class="producto" data-nombre="Licuadora 500W">
+      <h4>Licuadora 500W</h4>
+      <img src="electrodom/Licuadora.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Potente motor para smoothies, salsas y más.</p>
+<p>Precio: $60.00</p>
+      <button onclick="agregarAlCarrito('Licuadora 500W', 60)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Procesador de Alimentos">
+      <h4>Procesador de Alimentos</h4>
+      <img src="electrodom/Procesador.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Corta, ralla y mezcla sin esfuerzo.</p>
+<p>Precio: $75.00</p>
+      <button onclick="agregarAlCarrito('Procesador de Alimentos', 75)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Freidora de Aire">
+      <h4>Freidora de Aire</h4>
+      <img src="electrodom/Freidora.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Cocina crujiente con poco o nada de aceite.</p>
+<p>Precio: $90.00</p>
+      <button onclick="agregarAlCarrito('Freidora de Aire', 90)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Horno Eléctrico">
+      <h4>Horno Eléctrico</h4>
+      <img src="electrodom/Horno.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Compacto pero potente, ideal para hornear o tostar.</p>
+<p>Precio: $120.00</p>
+      <button onclick="agregarAlCarrito('Horno Eléctrico', 120)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Cafetera Automática">
+      <h4>Cafetera Automática</h4>
+      <img src="electrodom/Cafetera.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Prepara café aromático con solo pulsar un botón.</p>
+<p>Precio: $50.00</p>
+      <button onclick="agregarAlCarrito('Cafetera Automática', 50)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Cuchillos y Accesorios -->
+  <div class="categoria" data-nombre="Cuchillos y Accesorios">
+    <h3>Cuchillos y Accesorios</h3>
+    <div class="producto" data-nombre="Cuchillo de Chef">
+      <h4>Cuchillo de Chef</h4>
+      <img src="cuchillos/chef.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Hoja ancha y afilada para cortes precisos.</p>
+<p>Precio: $30.00</p>
+      <button onclick="agregarAlCarrito('Cuchillo de Chef', 30)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Cuchillo para Pan">
+      <h4>Cuchillo para Pan</h4>
+      <img src="cuchillos/pan.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Hoja dentada para rebanar sin aplastar.</p>
+<p>Precio: $25.00</p>
+      <button onclick="agregarAlCarrito('Cuchillo para Pan', 25)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Pelador de Verduras">
+      <h4>Pelador de Verduras</h4>
+      <img src="cuchillos/pelador.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Pela frutas y verduras de forma rápida y segura.</p>
+<p>Precio: $8.00</p>
+      <button onclick="agregarAlCarrito('Pelador de Verduras', 8)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Afilador Manual">
+      <h4>Afilador Manual</h4>
+      <img src="cuchillos/afilador.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Mantén tus cuchillos siempre afilados.</p>
+<p>Precio: $12.00</p>
+      <button onclick="agregarAlCarrito('Afilador Manual', 12)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Tabla de Cortar Madera">
+      <h4>Tabla de Cortar Madera</h4>
+      <img src="cuchillos/tablapicar.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Superficie resistente para preparar ingredientes.</p>
+<p>Precio: $18.00</p>
+      <button onclick="agregarAlCarrito('Tabla de Cortar Madera', 18)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Repostería -->
+  <div class="categoria" data-nombre="Repostería">
+    <h3>Repostería</h3>
+    <div class="producto" data-nombre="Molde para Pastel Redondo">
+      <h4>Molde para Pastel Redondo</h4>
+      <img src="reposteria/molde.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Ideal para hornear pasteles uniformes.</p>
+<p>Precio: $15.00</p>
+      <button onclick="agregarAlCarrito('Molde para Pastel Redondo', 15)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Espátula para Repostería">
+      <h4>Espátula para Repostería</h4>
+      <img src="reposteria/espatularep.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Útil para esparcir cremas y decorar.</p>
+<p>Precio: $7.00</p>
+      <button onclick="agregarAlCarrito('Espátula para Repostería', 7)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Manga Pastelera">
+      <h4>Manga Pastelera</h4>
+      <img src="reposteria/manga.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Decora como un profesional con distintas boquillas.</p>
+<p>Precio: $10.00</p>
+      <button onclick="agregarAlCarrito('Manga Pastelera', 10)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Báscula de Cocina">
+      <h4>Báscula de Cocina</h4>
+      <img src="reposteria/bascula.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Mide con precisión para resultados perfectos.</p>
+<p>Precio: $20.00</p>
+      <button onclick="agregarAlCarrito('Báscula de Cocina', 20)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Rodillo para Masa">
+      <h4>Rodillo para Masa</h4>
+      <img src="reposteria/rodillo.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Estira masas con facilidad y uniformidad.</p>
+<p>Precio: $12.00</p>
+      <button onclick="agregarAlCarrito('Rodillo para Masa', 12)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Almacenamiento y Organización -->
+  <div class="categoria" data-nombre="Almacenamiento y Organización">
+    <h3>Almacenamiento y Organización</h3>
+    <div class="producto" data-nombre="Frascos de Vidrio Herméticos">
+      <h4>Frascos de Vidrio Herméticos</h4>
+      <img src="almacenamiento/frascos.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Conservan alimentos frescos por más tiempo.</p>
+<p>Precio: $18.00</p>
+      <button onclick="agregarAlCarrito('Frascos de Vidrio Herméticos', 18)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Recipientes Plásticos Herméticos">
+      <h4>Recipientes Plásticos</h4>
+      <img src="almacenamiento/plastico.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Ideales para guardar sobras y meal prep.</p>
+<p>Precio: $15.00</p>
+      <button onclick="agregarAlCarrito('Recipientes Plásticos Herméticos', 15)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Organizador de Cocina">
+      <h4>Organizador de Cocina</h4>
+      <img src="almacenamiento/organizador.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Optimiza el espacio y mantiene todo ordenado.</p>
+<p>Precio: $25.00</p>
+      <button onclick="agregarAlCarrito('Organizador de Cocina', 25)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Especiero de Madera">
+      <h4>Especiero de Madera</h4>
+      <img src="almacenamiento/especiero.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Acceso rápido y elegante a tus especias favoritas.</p>
+<p>Precio: $20.00</p>
+      <button onclick="agregarAlCarrito('Especiero de Madera', 20)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Caja Organizadora Apilable">
+      <h4>Caja Organizadora Apilable</h4>
+      <img src="almacenamiento/cajas.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Ahorra espacio y mantén la despensa ordenada.</p>
+<p>Precio: $22.00</p>
+      <button onclick="agregarAlCarrito('Caja Organizadora Apilable', 22)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <!-- Vajilla y Cubiertos -->
+  <div class="categoria" data-nombre="Vajilla y Cubiertos">
+    <h3>Vajilla y Cubiertos</h3>
+    <div class="producto" data-nombre="Juego de Platos Porcelana">
+      <h4>Juego de Platos Porcelana</h4>
+      <img src="vajilla/vajilla.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Elegancia y resistencia para tu mesa.</p>
+<p>Precio: $40.00</p>
+      <button onclick="agregarAlCarrito('Juego de Platos Porcelana', 40)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Bowls para Ensalada">
+      <h4>Bowls para Ensalada</h4>
+      <img src="vajilla/bowl.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Perfectos para servir ensaladas o cereales.</p>
+<p>Precio: $25.00</p>
+      <button onclick="agregarAlCarrito('Bowls para Ensalada', 25)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Juego de Cubiertos Acero Inoxidable">
+      <h4>Juego de Cubiertos Acero Inoxidable</h4>
+      <img src="vajilla/cubiertos.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Duraderos y de diseño moderno.</p>
+<p>Precio: $35.00</p>
+      <button onclick="agregarAlCarrito('Juego de Cubiertos Acero Inoxidable', 35)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Vasos de Cristal">
+      <h4>Vasos de Cristal</h4>
+      <img src="vajilla/vasos.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Claridad y estilo para cualquier bebida.</p>
+<p>Precio: $20.00</p>
+      <button onclick="agregarAlCarrito('Vasos de Cristal', 20)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-nombre="Platos para Postre">
+      <h4>Platos para Postre</h4>
+      <img src="vajilla/postre.jpeg" alt="Espátula de Silicona" style="width:100%; max-width:200px; display:block; margin:10px 0;">
+      <p>Presentación ideal para tus dulces favoritos.</p>
+<p>Precio: $18.00</p>
+      <button onclick="agregarAlCarrito('Platos para Postre', 18)">Agregar al carrito</button>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2025 LULA - Produtos de Cocina. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+ function agregarAlCarrito(nombre, precio) {
+  const productoExistente = carrito.find(p => p.nombre === nombre);
+  if (productoExistente) {
+    productoExistente.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  localStorage.setItem('carrito', JSON.stringify(carrito)); // GUARDAR
+
+  actualizarContador();
+  mostrarCarrito();
+}
+
+  function actualizarContador() {
+    const contador = document.getElementById('contador-carrito');
+    const total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+    contador.textContent = total;
+  }
+function mostrarCarrito() {
+  const contenido = document.getElementById('contenido-carrito');
+  if (carrito.length === 0) {
+    contenido.innerHTML = '<p>No hay productos en el carrito.</p>';
+    return;
+  }
+
+  let html = '<ul>';
+  let total = 0;
+
+  carrito.forEach((producto, index) => {
+    const subtotal = producto.precio * producto.cantidad;
+    total += subtotal;
+    html += `<li>${producto.nombre} - $${producto.precio} x ${producto.cantidad} = $${subtotal.toFixed(2)} 
+      <button onclick="eliminarProducto(${index})">Eliminar</button></li>`;
+
+  });
+
+  html += '</ul>';
+  html += `<p><strong>Total a pagar: $${total.toFixed(2)}</strong></p>`;
+   html += `<button onclick="abrirModal('modal-direccion')">Pagar</button>`;
+  contenido.innerHTML = html;
+}
+
+ function eliminarProducto(index) {
+  carrito.splice(index, 1);
+  localStorage.setItem('carrito', JSON.stringify(carrito)); // GUARDAR
+
+  actualizarContador();
+  mostrarCarrito();
+}
+
+actualizarContador();
+mostrarCarrito();
+
+
+  function toggleCarrito() {
+    const carritoDiv = document.getElementById('carrito');
+    carritoDiv.classList.toggle('mostrar');
+  }
+
+
+  function buscarProductos() {
+    const textoBusqueda = document.getElementById('input-busqueda').value.toLowerCase();
+    const productos = document.querySelectorAll('.producto');
+    productos.forEach(producto => {
+      const nombre = producto.getAttribute('data-nombre').toLowerCase();
+      if (nombre.includes(textoBusqueda)) {
+        producto.style.display = '';
+      } else {
+        producto.style.display = 'none';
+      }
+    });
+  }
+
+function abrirModal(id) {
+  document.getElementById(id).style.display = 'block';
+}
+
+function cerrarModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.style.display = "none";
+  }
+}
+
+function filtrarCategoria(nombreCategoria) {
+  const categorias = document.querySelectorAll('.categoria');
+  categorias.forEach(cat => {
+    const nombre = cat.getAttribute('data-nombre');
+    if (!nombreCategoria || nombre === nombreCategoria) {
+      cat.style.display = '';
+    } else {
+      cat.style.display = 'none';
+    }
+  });
+  cerrarModal('modal-categorias');
+}
+function confirmarDireccion() {
+  const campos = ['estado', 'municipio', 'colonia', 'calle'];
+  for (const id of campos) {
+    if (!document.getElementById(id).value.trim()) {
+      alert('Por favor completa todos los campos obligatorios de dirección.');
+      return;
+    }
+  }
+  cerrarModal('modal-direccion');
+  abrirModal('modal-pago');
+}
+function validarPago() {
+  const nombre = document.getElementById('nombre-tarjeta').value.trim();
+  const numero = document.getElementById('numero-tarjeta').value.trim();
+  const fecha = document.getElementById('fecha-exp').value.trim();
+  const cvv = document.getElementById('cvv').value.trim();
+
+  if (!nombre || !numero || !fecha || !cvv) {
+    alert('Por favor, complete todos los campos.');
+    return false;
+  }
+
+  if (!/^\d{16}$/.test(numero)) {
+    alert('Número de tarjeta inválido. Debe tener 16 dígitos.');
+    return false;
+  }
+
+  if (!/^\d{2}\/\d{2}$/.test(fecha)) {
+    alert('Fecha de expiración inválida. Use el formato MM/AA.');
+    return false;
+  }
+
+  if (!/^\d{3,4}$/.test(cvv)) {
+    alert('CVV inválido.');
+    return false;
+  }
+
+  return true;
+}
+
+function procesarPago() {
+  if (!validarPago()) return;
+  cerrarModal('modal-pago');
+  abrirModal('modal-confirmacion');
+  carrito = [];
+  localStorage.removeItem('carrito');
+  actualizarContador();
+  mostrarCarrito();
+}
+
+
+</script>
+
+<!-- Modal Contacto -->
+<div id="modal-contacto" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal('modal-contacto')">&times;</span>
+    <h2>Redes Sociales y Medios de Contacto</h2>
+    <ul>
+      <li>📧 Correo: <a href="mailto:contacto@LULAproductos.com">contacto@LULAproductos.com</a></li>
+      <li>📱 WhatsApp: <a href="https://whatsapp.com/channel/0029VbAfQIhAInPf0gMQTa11" target="_blank">Canal de Difusión</a></li>
+      <li>📞 Teléfono: <a href="tel:+522942825386">(52) 294-282-5385</a></li>
+      <li>📘 Facebook: <a href="https://www.facebook.com/profile.php?id=61577381422435" target="_blank">/LULAproductoscocina</a></li>
+      <li>📸 Instagram: <a href="https://www.instagram.com/lula.productosdecocina/" target="_blank">@LULAproductoscocina</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal Categorías -->
+<div id="modal-categorias" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal('modal-categorias')">&times;</span>
+    <h2>Selecciona una Categoría</h2>
+    <ul id="lista-categorias">
+      <li><a href="#" onclick="filtrarCategoria('Utensilios de Cocina')">Utensilios de Cocina</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Ollas y Sartenes')">Ollas y Sartenes</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Electrodomésticos de Cocina')">Electrodomésticos de Cocina</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Cuchillos y Accesorios')">Cuchillos y Accesorios</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Repostería')">Repostería</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Almacenamiento y Organización')">Almacenamiento y Organización</a></li>
+      <li><a href="#" onclick="filtrarCategoria('Vajilla y Cubiertos')">Vajilla y Cubiertos</a></li>
+      <li><a href="#" onclick="filtrarCategoria('')">Mostrar Todas</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal Dirección -->
+<div id="modal-direccion" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal('modal-direccion')">&times;</span>
+    <h2>Dirección de Entrega</h2>
+    <form id="form-direccion">
+      <input type="text" id="estado" placeholder="Estado" required>
+      <input type="text" id="municipio" placeholder="Municipio" required>
+      <input type="text" id="colonia" placeholder="Colonia" required>
+      <input type="text" id="calle" placeholder="Calle y número" required>
+      <input type="text" id="referencias" placeholder="Referencias adicionales (opcional)">
+      <button type="button" onclick="confirmarDireccion()">Continuar al Pago</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Pago -->
+<div id="modal-pago" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal('modal-pago')">&times;</span>
+    <h2>Pago con Tarjeta</h2>
+    <form id="form-pago">
+      <input type="text" id="nombre-tarjeta" placeholder="Nombre en la tarjeta" required>
+      <input type="text" id="numero-tarjeta" placeholder="Número de tarjeta (16 dígitos)" required>
+      <input type="text" id="fecha-exp" placeholder="Fecha de expiración (MM/AA)" required>
+      <input type="text" id="cvv" placeholder="CVV" required>
+      <button type="button" onclick="procesarPago()">Confirmar Pago</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Modal Confirmación -->
+<div id="modal-confirmacion" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal('modal-confirmacion')">&times;</span>
+    <h2>¡Pedido Confirmado!</h2>
+    <p>Gracias por tu compra. Tu pedido será entregado en la dirección indicada.</p>
+  </div>
+</div>
+
+
+</body>
+</html>
